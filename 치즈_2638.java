@@ -2,9 +2,9 @@ package baekjoon;
 
 import java.util.*;
 
-public class 치즈_2636 {
+public class 치즈_2638 {
     static int[][] map;
-    static boolean[][] visited;
+    static int[][] visited;
     static final int[] dr = {1, -1, 0, 0};
     static final int[] dc = {0, 0, 1, -1};
     static int row, col, cnt;
@@ -16,7 +16,7 @@ public class 치즈_2636 {
         col = sc.nextInt();
 
         map= new int[row][col];
-        visited= new boolean[row][col];
+        visited= new int[row][col];
         stack = new Stack<>();
 
         for (int i=0;i<row;i++) {
@@ -37,16 +37,13 @@ public class 치즈_2636 {
             	break;
             }
         }
-        stack.pop();
         System.out.println(day);
-        System.out.println(stack.pop());
-
     }
 
     static void bfs () {
         Deque<int[]> queue = new ArrayDeque<>();
         queue.add(new int[] {0,0});
-        visited[0][0]=true;
+        visited[0][0]++;
         cnt=0;
 
         while (!queue.isEmpty()) {
@@ -59,20 +56,23 @@ public class 치즈_2636 {
                 if (nr<0|| nc<0|| nr>=row||nc>=col) {
                     continue;
                 }
-                if (!visited[nr][nc]) {
-                    if (map[nr][nc]==0) {
-                        visited[nr][nc]=true;
-                        queue.add(new int[] {nr,nc});
-                    } else {
-                        visited[nr][nc]=true;
-                        map[nr][nc]=0;
-                        cnt++;
-                    }
+                
+                if (map[nr][nc]==0) {
+                	if (visited[nr][nc]==0) {
+                		visited[nr][nc]++;
+                		queue.add(new int[] {nr,nc});
+                	}
+                } else {
+                	visited[nr][nc]++;
+                	if (visited[nr][nc]>=2) {
+                		map[nr][nc]=0;
+                		cnt++;
+                	}
                 }
             }
         }
         stack.push(cnt);
-        visited= new boolean[row][col];
+        visited= new int[row][col];
     }
 
 }
