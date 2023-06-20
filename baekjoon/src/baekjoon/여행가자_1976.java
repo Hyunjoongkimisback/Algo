@@ -78,7 +78,7 @@ public class 여행가자_1976 {
 	
 	private static int[] set (int size) {
 		int[] arr = new int[size+1];
-		for (int i : arr) {
+		for (int i=0;i<size;i++) {
 			arr[i]=i;
 		}
 		return arr;
